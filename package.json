@@ -1,0 +1,26 @@
+{
+  "name": "hr-manager-cms",
+  "version": "1.0.0",
+  "description": "Employee Managment System",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pharaohnof/HR-manager-CMS.git"
+  },
+  "author": "M. Scott Pawlak (pharaohnof)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pharaohnof/HR-manager-CMS/issues"
+  },
+  "homepage": "https://github.com/pharaohnof/HR-manager-CMS#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "express": "^4.17.1",
+    "inquirer": "^8.1.1",
+    "mysql2": "^2.2.5"
+  }
+}
