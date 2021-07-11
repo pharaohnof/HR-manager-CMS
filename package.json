@@ -4,7 +4,7 @@
   "description": "Employee Managment System",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/pharaohnof/HR-manager-CMS#readme",
   "dependencies": {
     "console.table": "^0.10.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "inquirer": "^8.1.1",
     "mysql2": "^2.2.5"
