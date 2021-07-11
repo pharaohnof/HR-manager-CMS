@@ -4,6 +4,9 @@ const inquirer = require('inquirer')
 
 require('dotenv').config()
 
+
+const linebreak = '_______________________________________________________________________'
+
 //connect to db
 
 const connection = db.createConnection({
@@ -14,4 +17,11 @@ const connection = db.createConnection({
     database: process.env.DB_NAME ||'hr_tracker',
 
 })
-console.log(`connected to ${connection.config.host}:${connection.config.database} at PORT ${connection.config.port}`)
+// console.log(`connected to ${connection.config.host}:${connection.config.database} at PORT ${connection.config.port}`)
+console.log(`${linebreak}
+WELCOME TO HR MANAGER
+
+`)
+
+
+
