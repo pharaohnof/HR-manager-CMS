@@ -23,5 +23,102 @@ WELCOME TO HR MANAGER
 
 `)
 
+// start inquiry
 
+const initPrompt = [
+    {
+        type: 'list',
+        name: 'InitPrompt',
+        message: 'SELECT AN OPTION:',
+        choices: [
+            'View Departments',
+            'View Employees',
+            'View Roles',
+            'Add Employee',
+            'Add Role',
+            'Add Department',
+            'Edit Employee Role',
+            'Quit'
+        ]
+    }
+]
+
+function initPromptHandler() {
+    inquirer.prompt(initPrompt).then((answer) => {
+        switch (answer.InitPrompt) {
+            case 'View Departments':
+                console.log('You Selected View Departments')
+                //insert view dep func
+                viewDepartmentsHandler()
+                break;
+            
+            case 'View Employees':
+                console.log('You Selected View Employees')
+                //insert function
+                viewEmployeesHandler()
+                break;
+
+            case 'View Roles':
+                console.log('You Selected View Roles')
+                //insert role func
+                viewRolesHandler()
+                break;
+
+            case 'Add Employee':
+                console.log('You Selected Add Employee')
+                //insert function
+                break;
+
+            case 'Add Role':
+                console.log('You Selected Add Role')
+                //insert function
+                break;
+
+            case 'Add Department':
+                console.log('You Selected Add Department')
+                //insert function
+                break;
+
+            case 'Edit Employee Role':
+                console.log('You Selected Edit Employee Role')
+                //insert function
+                break;
+
+            case 'Quit':
+                console.log('EXITING')
+                //insert function
+                process.exit(0)
+        }
+    }
+    )
+}
+
+initPromptHandler()
+
+function viewDepartmentsHandler(){
+    connection.query('select * from department', (err, res) => {
+        console.log(res)
+        initPromptHandler()
+
+    }
+    )
+}
+
+function viewEmployeesHandler(){
+    connection.query('select * from employee', (err, res) => {
+        console.log(res)
+        initPromptHandler()
+
+    }
+    )
+}
+
+function viewRolesHandler(){
+    connection.query('select * from role', (err, res) => {
+        console.log(res)
+        initPromptHandler()
+
+    }
+    )
+}
 
