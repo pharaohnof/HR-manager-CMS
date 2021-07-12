@@ -73,41 +73,54 @@ const addDepPrmt = [
     }
 ]
 
+const addRolePrmt = [
+    {
+        type: "string",
+        name: 'roleTitle',
+        message: `ENTER ROLE TITLE`
+    },
+    {
+        type: "number",
+        name: 'roleSalary',
+        message: `ENTER SALARY FOR ROLE`
+    },
+    {
+        type: "number",
+        name: 'depId',
+        message: `ENTER DEPARTMENT ID FOR ROLE`
+    }
+]
+
 function initPromptHandler() {
   inquirer.prompt(initPrompt).then((answer) => {
     switch (answer.InitPrompt) {
       case "View Departments":
         console.log("You Selected View Departments");
-        //insert view dep func
         viewDepartmentsHandler();
         break;
 
       case "View Employees":
         console.table("You Selected View Employees");
-        //insert function
         viewEmployeesHandler();
         break;
 
       case "View Roles":
         console.log("You Selected View Roles");
-        //insert role func
         viewRolesHandler();
         break;
 
       case "Add Employee":
         console.log("You Selected Add Employee");
-        //insert function
         addEmployeeHandler();
         break;
 
       case "Add Role":
         console.log("You Selected Add Role");
-        //insert function
+        addRoleHandler();
         break;
 
       case "Add Department":
         console.log("You Selected Add Department");
-        //insert function
         addDepHandler()
         break;
 
@@ -118,7 +131,6 @@ function initPromptHandler() {
 
       case "Quit":
         console.log("EXITING");
-        //insert function
         process.exit(0);
     }
   });
@@ -178,4 +190,22 @@ function addDepHandler() {
 
     )
     
+}
+
+function addRoleHandler() {
+    inquirer.prompt(addRolePrmt)
+    .then((answer) => {
+      connection.query(
+            'insert into role (title, salary, department_id) values (?,?,?)',
+            [answer.roleTitle, answer.roleSalary, answer.depId],
+            (err, res) => {
+                if (err) {
+                    console.error(`${err.sqlMessage} Please try again with valid input`)
+                    initPromptHandler()
+                }else{
+                console.table(res)
+                initPromptHandler()
+            }}
+        )
+    })
 }
