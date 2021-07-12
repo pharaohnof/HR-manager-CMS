@@ -1,12 +1,10 @@
-console.clear()
+console.clear();
 //add dependencies
-
-
 
 const db = require("mysql2");
 const inquirer = require("inquirer");
-const figlet = require('figlet');
-const chalk = require('chalk');
+const figlet = require("figlet");
+const chalk = require("chalk");
 require("dotenv").config();
 
 const linebreak =
@@ -20,12 +18,6 @@ const connection = db.createConnection({
   password: process.env.DB_PASSWORD || "", //enter your db password here
   database: process.env.DB_NAME || "hr_tracker",
 });
-// console.log(`connected to ${connection.config.host}:${connection.config.database} at PORT ${connection.config.port}`)
-
-// console.log(`${linebreak}
-// WELCOME TO HR MANAGER
-
-// `);
 
 // start inquiry
 
@@ -66,49 +58,48 @@ const addEmpPrmt = [
   {
     type: "number",
     name: "ManagerId",
-    message: `ENTER EMPLOYEE MANAGER'S ID`,
+    message: `ENTER EMPLOYEE MANAGER'S ID (if employee has no manager Enter 0)`,
   },
 ];
 
 const addDepPrmt = [
-    {
-        type: "string",
-        name: "depName",
-        message: `ENTER DEPARTMENT NAME`
-    }
-]
+  {
+    type: "string",
+    name: "depName",
+    message: `ENTER DEPARTMENT NAME`,
+  },
+];
 
 const addRolePrmt = [
-    {
-        type: "string",
-        name: 'roleTitle',
-        message: `ENTER ROLE TITLE`
-    },
-    {
-        type: "number",
-        name: 'roleSalary',
-        message: `ENTER SALARY FOR ROLE`
-    },
-    {
-        type: "number",
-        name: 'depId',
-        message: `ENTER DEPARTMENT ID FOR ROLE`
-    }
-]
+  {
+    type: "string",
+    name: "roleTitle",
+    message: `ENTER ROLE TITLE`,
+  },
+  {
+    type: "number",
+    name: "roleSalary",
+    message: `ENTER SALARY FOR ROLE`,
+  },
+  {
+    type: "number",
+    name: "depId",
+    message: `ENTER DEPARTMENT ID FOR ROLE`,
+  },
+];
 
 const editRolePrmt = [
-    {
-        type: "number",
-        name: 'empId',
-        message: `ENTER EMPLOYEE ID# OF EMPLOYEE WHOSE ROLE YOU WOULD LIKE TO EDIT:`
-    },
-    {
-        type: "number",
-        name: 'roleId',
-        message: `ENTER NEW ROLE ID:`
-    }
-]
-
+  {
+    type: "number",
+    name: "empId",
+    message: `ENTER EMPLOYEE ID# OF EMPLOYEE WHOSE ROLE YOU WOULD LIKE TO EDIT:`,
+  },
+  {
+    type: "number",
+    name: "roleId",
+    message: `ENTER NEW ROLE ID:`,
+  },
+];
 
 function initPromptHandler() {
   inquirer.prompt(initPrompt).then((answer) => {
@@ -140,12 +131,12 @@ function initPromptHandler() {
 
       case "Add Department":
         console.log("You Selected Add Department");
-        addDepHandler()
+        addDepHandler();
         break;
 
       case "Edit Employee Role":
         console.log("You Selected Edit Employee Role");
-        editRoleHandler()
+        editRoleHandler();
         break;
 
       case "Quit":
@@ -180,121 +171,131 @@ function addEmployeeHandler() {
   inquirer.prompt(addEmpPrmt).then((answer) => {
     connection.query(
       "insert into employee (first_name, last_name, role_id, manager_id) values (?,?,?,?)",
-      [answer.firstName, answer.lastName, answer.roleId, answer.managerd],
+      [answer.firstName, answer.lastName, answer.roleId, answer.ManagerId],
       function (err, res) {
         if (err) {
-            console.error(chalk.redBright(`
+          console.error(
+            chalk.redBright(`
             ${linebreak}
             ${err.sqlMessage}
             Please try again with valid input
             ${linebreak}
-            `))
-            initPromptHandler()
-        }else{
-        console.log(chalk.greenBright(`
+            `)
+          );
+          initPromptHandler();
+        } else {
+          console.log(
+            chalk.greenBright(`
         ${linebreak}
         Successfully Added New Employee
         ${linebreak}
-        `))
-        initPromptHandler()
-    }}
-);
+        `)
+          );
+          initPromptHandler();
+        }
+      }
+    );
   });
 }
 
 function addDepHandler() {
-    inquirer.prompt(addDepPrmt)
-    .then((answer) => {
-        connection.query(
-            'insert into department (name) values (?)',
-            [answer.depName],
-            (err, res) => {
-                if (err) {
-                    console.error(chalk.redBright(`
+  inquirer.prompt(addDepPrmt).then((answer) => {
+    connection.query(
+      "insert into department (name) values (?)",
+      [answer.depName],
+      (err, res) => {
+        if (err) {
+          console.error(
+            chalk.redBright(`
                     ${linebreak}
                     ${err.sqlMessage}
                     Please try again with valid input
                     ${linebreak}
-                    `))
-                    initPromptHandler()
-                }else{
-                console.log(chalk.greenBright(`
+                    `)
+          );
+          initPromptHandler();
+        } else {
+          console.log(
+            chalk.greenBright(`
                 ${linebreak}
                 Successfully Added New Department
                 ${linebreak}
-                `))
-                initPromptHandler()
-            }}
-        )
-    }
-
-    )
-    
+                `)
+          );
+          initPromptHandler();
+        }
+      }
+    );
+  });
 }
 
 function addRoleHandler() {
-    inquirer.prompt(addRolePrmt)
-    .then((answer) => {
-      connection.query(
-            'insert into role (title, salary, department_id) values (?,?,?)',
-            [answer.roleTitle, answer.roleSalary, answer.depId],
-            (err, res) => {
-                if (err) {
-                    console.error(chalk.redBright(`
+  inquirer.prompt(addRolePrmt).then((answer) => {
+    connection.query(
+      "insert into role (title, salary, department_id) values (?,?,?)",
+      [answer.roleTitle, answer.roleSalary, answer.depId],
+      (err, res) => {
+        if (err) {
+          console.error(
+            chalk.redBright(`
                     ${linebreak}
                     ${err.sqlMessage}
                     Please try again with valid input
                     ${linebreak}
-                    `))
-                    initPromptHandler()
-                }else{
-                console.log(chalk.greenBright(`
+                    `)
+          );
+          initPromptHandler();
+        } else {
+          console.log(
+            chalk.greenBright(`
                 ${linebreak}
                 Successfully Added New Role
                 ${linebreak}
-                `))
-                initPromptHandler()
-            }}
-        )
-    })
+                `)
+          );
+          initPromptHandler();
+        }
+      }
+    );
+  });
 }
 
 function editRoleHandler() {
-    inquirer.prompt(editRolePrmt)
-    .then((answer) => {
-        connection.query(
-            'update employee set role_id = ? where id = ?', 
-            [answer.roleId, answer.empId],
-            (err, res) => {
-                if (err) {
-                    console.error(chalk.redBright(`
+  inquirer.prompt(editRolePrmt).then((answer) => {
+    connection.query(
+      "update employee set role_id = ? where id = ?",
+      [answer.roleId, answer.empId],
+      (err, res) => {
+        if (err) {
+          console.error(
+            chalk.redBright(`
                     ${linebreak}
                     ${err.sqlMessage}
                     Please try again with valid input
                     ${linebreak}
-                    `))
-                    initPromptHandler()
-                }else{
-                console.log(chalk.greenBright(`
+                    `)
+          );
+          initPromptHandler();
+        } else {
+          console.log(
+            chalk.greenBright(`
                 ${linebreak}
                 Successfully Edited Employee Role
                 ${linebreak}
-                `))
-                initPromptHandler()
-            }}
-        )
-    }
-    )
-    
+                `)
+          );
+          initPromptHandler();
+        }
+      }
+    );
+  });
 }
 
-figlet('H. R. Management System', {font: 'doom' },(err, data) => {
-    if (err){
-        console.dir(err);
-        return;
-    }
-    console.log(chalk.blueBright(data))
-    initPromptHandler();
-
-})
-
+figlet("H. R. Management System", { font: "doom" }, (err, data) => {
+  if (err) {
+    console.dir(err);
+    return;
+  }
+  console.log(chalk.blueBright(data));
+  initPromptHandler();
+});
