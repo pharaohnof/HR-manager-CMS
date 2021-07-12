@@ -1,14 +1,18 @@
+console.clear()
 //add dependencies
+
+
+
 const db = require("mysql2");
 const inquirer = require("inquirer");
-
+const figlet = require('figlet');
+const chalk = require('chalk');
 require("dotenv").config();
 
 const linebreak =
   "_______________________________________________________________________";
 
 //connect to db
-
 const connection = db.createConnection({
   host: process.env.DB_HOST || "localhost",
   port: process.env.DB_PORT || 3306,
@@ -17,10 +21,11 @@ const connection = db.createConnection({
   database: process.env.DB_NAME || "hr_tracker",
 });
 // console.log(`connected to ${connection.config.host}:${connection.config.database} at PORT ${connection.config.port}`)
-console.log(`${linebreak}
-WELCOME TO HR MANAGER
 
-`);
+// console.log(`${linebreak}
+// WELCOME TO HR MANAGER
+
+// `);
 
 // start inquiry
 
@@ -91,6 +96,20 @@ const addRolePrmt = [
     }
 ]
 
+const editRolePrmt = [
+    {
+        type: "number",
+        name: 'empId',
+        message: `ENTER EMPLOYEE ID# OF EMPLOYEE WHOSE ROLE YOU WOULD LIKE TO EDIT:`
+    },
+    {
+        type: "number",
+        name: 'roleId',
+        message: `ENTER NEW ROLE ID:`
+    }
+]
+
+
 function initPromptHandler() {
   inquirer.prompt(initPrompt).then((answer) => {
     switch (answer.InitPrompt) {
@@ -126,7 +145,7 @@ function initPromptHandler() {
 
       case "Edit Employee Role":
         console.log("You Selected Edit Employee Role");
-        //insert function
+        editRoleHandler()
         break;
 
       case "Quit":
@@ -135,8 +154,6 @@ function initPromptHandler() {
     }
   });
 }
-
-initPromptHandler();
 
 function viewDepartmentsHandler() {
   connection.query("select * from department", (err, res) => {
@@ -200,12 +217,52 @@ function addRoleHandler() {
             [answer.roleTitle, answer.roleSalary, answer.depId],
             (err, res) => {
                 if (err) {
-                    console.error(`${err.sqlMessage} Please try again with valid input`)
+                    console.error(chalk.redBright(`
+                    ${linebreak}
+                    ${err.sqlMessage}
+                    Please try again with valid input
+                    ${linebreak}
+                    `))
+                    initPromptHandler()
+                }else{
+                console.log(chalk.greenBright(`
+                ${linebreak}
+                Successfully Added New Role
+                ${linebreak}
+                `))
+                initPromptHandler()
+            }}
+        )
+    })
+}
+
+function editRoleHandler() {
+    inquirer.prompt(editRolePrmt)
+    .then((answer) => {
+        connection.query(
+            'update employee set role_id = ? where id = ?', 
+            [answer.roleId, answer.empId],
+            (err, res) => {
+                if (err) {
+                    console.error(chalk.redBright(`${err.sqlMessage} Please try again with valid input`))
                     initPromptHandler()
                 }else{
                 console.table(res)
                 initPromptHandler()
             }}
         )
-    })
+    }
+    )
+    
 }
+
+figlet('H. R. Management System', {font: 'doom' },(err, data) => {
+    if (err){
+        console.dir(err);
+        return;
+    }
+    console.log(chalk.blueBright(data))
+    initPromptHandler();
+
+})
+

@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/pharaohnof/HR-manager-CMS#readme",
   "dependencies": {
+    "chalk": "^4.1.1",
     "console.table": "^0.10.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "figlet": "^1.5.0",
     "inquirer": "^8.1.1",
     "mysql2": "^2.2.5"
   }
