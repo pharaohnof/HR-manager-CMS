@@ -291,7 +291,7 @@ function editRoleHandler() {
   });
 }
 
-figlet("H. R. Management System", { font: "doom" }, (err, data) => {
+figlet("H. R. Management System", { font: "Doom" }, (err, data) => {
   if (err) {
     console.dir(err);
     return;
