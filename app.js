@@ -182,11 +182,23 @@ function addEmployeeHandler() {
       "insert into employee (first_name, last_name, role_id, manager_id) values (?,?,?,?)",
       [answer.firstName, answer.lastName, answer.roleId, answer.managerd],
       function (err, res) {
-        if (err) throw err;
-        console.table(res);
-        initPromptHandler();
-      }
-    );
+        if (err) {
+            console.error(chalk.redBright(`
+            ${linebreak}
+            ${err.sqlMessage}
+            Please try again with valid input
+            ${linebreak}
+            `))
+            initPromptHandler()
+        }else{
+        console.log(chalk.greenBright(`
+        ${linebreak}
+        Successfully Added New Employee
+        ${linebreak}
+        `))
+        initPromptHandler()
+    }}
+);
   });
 }
 
@@ -197,11 +209,22 @@ function addDepHandler() {
             'insert into department (name) values (?)',
             [answer.depName],
             (err, res) => {
-                if (err) throw err
-                console.table(res)
+                if (err) {
+                    console.error(chalk.redBright(`
+                    ${linebreak}
+                    ${err.sqlMessage}
+                    Please try again with valid input
+                    ${linebreak}
+                    `))
+                    initPromptHandler()
+                }else{
+                console.log(chalk.greenBright(`
+                ${linebreak}
+                Successfully Added New Department
+                ${linebreak}
+                `))
                 initPromptHandler()
-            } 
-
+            }}
         )
     }
 
@@ -244,10 +267,19 @@ function editRoleHandler() {
             [answer.roleId, answer.empId],
             (err, res) => {
                 if (err) {
-                    console.error(chalk.redBright(`${err.sqlMessage} Please try again with valid input`))
+                    console.error(chalk.redBright(`
+                    ${linebreak}
+                    ${err.sqlMessage}
+                    Please try again with valid input
+                    ${linebreak}
+                    `))
                     initPromptHandler()
                 }else{
-                console.table(res)
+                console.log(chalk.greenBright(`
+                ${linebreak}
+                Successfully Edited Employee Role
+                ${linebreak}
+                `))
                 initPromptHandler()
             }}
         )
