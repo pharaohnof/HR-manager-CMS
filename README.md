@@ -25,7 +25,7 @@
 ***
 
   ### Clone the repository: 
-    git clone git@github.com:pharaohnof/HR-manager-CMS.git  
+    git clone git@github.com:faerodev/HR-manager-CMS.git  
       
   ### Dependencies:  
   The following dependencies are required for use:  
@@ -61,7 +61,7 @@
 
 ***
     
-  If you would like to contribute to this project, please [add me on GitHub](https://github.com/pharaohnof)
+  If you would like to contribute to this project, please [add me on GitHub](https://github.com/faerodev)
     
   ##  Testing Instructions  
 
@@ -84,6 +84,6 @@
   If you have any questions regarding this application you can reach me using the below contact information:  
   ### Contact Info  
     
-  GitHub: [pharaohnof](https://github.com/pharaohnof)
+  GitHub: [FaeroDev](https://github.com/faerodev)
 
-  Email:  pharaohnof.software@gmail.com
+  Email:  faerodev@gmail.com
