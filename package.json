@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pharaohnof/HR-manager-CMS.git"
+    "url": "git+https://github.com/faerodev/HR-manager-CMS.git"
   },
-  "author": "M. Scott Pawlak (pharaohnof)",
+  "author": "M. Scott Pawlak (FaeroDev)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pharaohnof/HR-manager-CMS/issues"
+    "url": "https://github.com/faerodev/HR-manager-CMS/issues"
   },
-  "homepage": "https://github.com/pharaohnof/HR-manager-CMS#readme",
+  "homepage": "https://github.com/faerodev/HR-manager-CMS#readme",
   "dependencies": {
     "chalk": "^4.1.1",
     "console.table": "^0.10.0",
